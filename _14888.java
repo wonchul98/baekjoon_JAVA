@@ -79,7 +79,7 @@ public class _14888 {
 				L.add(i);
 			}			
 		}
-		int maxAns = 0;
+		int maxAns = Integer.MIN_VALUE;
 		int minAns = Integer.MAX_VALUE;
 		do {
 			maxAns = Math.max(maxAns,  calc());
