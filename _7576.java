@@ -68,17 +68,14 @@ public class _7576 {
 		}
 		q.add(new Pair(1000,1000));
 		int cnt= 0;
-		
 		while(true) {
 			Queue<Pair> tq = new LinkedList<>();
 			while(!q.isEmpty()) {
 				Pair cur = q.poll();
-				System.out.println("cur: " + cur);
 				if((Integer)cur.getX() == 1000) {
 					cnt++;
 					continue;
 				}
-				//visited[(Integer)cur.getX()][(Integer)cur.getY()] = true;
 				for(int i = 0;i<4;i++) {
 					int nx = (Integer)cur.getX() + dx[i];
 					int ny = (Integer)cur.getY() + dy[i];
