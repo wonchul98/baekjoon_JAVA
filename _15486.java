@@ -4,26 +4,34 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class _15486 {
-	public static class Pair{
-		int cost;
-		int value;
-		Pair(int cost, int value){
-			this.cost = cost;
-			this.value = value;
-		}
-	}
-	public static void makeDp() {
-		
-	}
-	public static Pair[] arr = new Pair[1500000]; 
-	public static int N;
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		for(int i = 0 ; i <N;i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			arr[i] = new Pair(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
-		}
-		makeDp();
-	}
+    static int N; 
+    static int[] T, P; 
+    static int[] dp; 
+
+    public static void main(String[] args) throws IOException{
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+
+        T = new int[N + 2]; //time
+        P = new int[N + 2]; // pay
+        dp = new int[N + 2];
+
+        for (int i = 1; i <= N; i++) {
+        	st = new StringTokenizer(br.readLine());
+            T[i] = Integer.parseInt(st.nextToken());
+            P[i] = Integer.parseInt(st.nextToken());
+        }
+        // i일에 일을하는 경우 vs 넘기는 경우
+        for (int i = N; i > 0; i--) {
+            int nextDay = i + T[i]; 
+            if (nextDay <= N + 1) {
+                dp[i] = Math.max(P[i] + dp[nextDay], dp[i + 1]); 
+            } else {
+                dp[i] = dp[i + 1];
+            }
+        }
+
+        System.out.println(dp[1]);
+    }
 }
