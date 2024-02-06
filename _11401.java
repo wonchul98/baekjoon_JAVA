@@ -15,7 +15,7 @@ public class _11401 {
 		Long up;
 		for(int i = 0; i < K;i++) {
 			temp *= (N - i);
-			temp % = j;
+			temp %= j;
 		}
 		up = temp;
 		temp = 1L;
