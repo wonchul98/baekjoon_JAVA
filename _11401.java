@@ -19,8 +19,10 @@ public class _11401 {
 		}
 		up = temp;
 		temp = 1L;
-		for(int i = 0; i < K;i++) {
+		for(int i = 1; i <= K;i++) {
 			temp *= i;
+			temp %= j;
 		}
+
 	}
 }
