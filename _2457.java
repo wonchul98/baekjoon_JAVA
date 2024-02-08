@@ -21,12 +21,12 @@ public class _2457 {
         }
 
         Arrays.sort(list);
-        for (int i = 0; i < list.length; i++) {
-			//System.out.println(list[i]);
-		}
+//        for (int i = 0; i < list.length; i++) {
+//			System.out.println(list[i]);
+//		}
         int covered = 300; //3월 1일
         int maxCover = 0, count = 0, idx = 0;
-        boolean isPossible = false;
+        boolean isPossible = true;
 
         for (int i = 0; i <= N ; i++) {
             //System.out.println("covered: " + covered);
@@ -37,7 +37,7 @@ public class _2457 {
                 if (list[idx].end > maxCover) {
                     maxCover = list[idx].end;
                     updated = true;
-                    isPossible = true; //한번이라도 선택이 되어야 함
+                    //isPossible = true; //한번이라도 선택이 되어야 함
                 }
                 idx++;
             }
@@ -45,14 +45,11 @@ public class _2457 {
             	//System.out.println("updated");
                 covered = maxCover;
                 count++;
-
             } else {
                 break;
             }
         }
-
         if (covered < 1130) isPossible = false;
-
         System.out.println(isPossible ? count : 0);
     }
     static class INFO implements Comparable<INFO> {

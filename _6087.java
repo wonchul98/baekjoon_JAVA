@@ -15,6 +15,16 @@ public class _6087 {
 	public static char[][] map = new char[100][100];
 	public static boolean arrived = false;
 	public static int minCnt = Integer.MAX_VALUE;
+	public static void printMemo() {
+		for(int i = 0; i < H; i++) {
+			for(int j =0 ; j < W;j++) {
+				int min = Integer.MAX_VALUE;
+				for(int k =0; k < 4;k++) min = Math.min(MEMO[i][j][k], min);
+				System.out.printf("%4d ", min);
+			}
+			System.out.println();
+		}
+	}
 	public static void initialize() {
 		for(int i = 0; i < H;i++) {
 			for(int j =0; j < W;j++) {
@@ -33,6 +43,7 @@ public class _6087 {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		W = Integer.parseInt(st.nextToken());
 		H = Integer.parseInt(st.nextToken());
+		initialize();
 		for (int i = 0; i < H; i++) {
 			String input = br.readLine();
 			for (int j = 0; j < W; j++) {
@@ -42,7 +53,7 @@ public class _6087 {
 						s_x = i;
 						s_y = j;
 						for(int k =0; k < 4;k++) {
-							q.add(new INFO(s_x + dx[k], s_y + dy[k], 0, k));
+							q.add(new INFO(s_x + dx[k], s_y + dy[k], k, 0));
 						}
 					}else {
 						e_x = i;
@@ -53,24 +64,27 @@ public class _6087 {
 		}
 		while(!q.isEmpty()) {
 			INFO curInfo = q.poll();
-			System.out.println(curInfo.toString());
+			if(!inRange(curInfo.x, curInfo.y) || map[curInfo.x][curInfo.y] == '*') continue;
+			//System.out.println(curInfo.toString());
 			if(curInfo.x == e_x && curInfo.y == e_y) { //도착 여부 판단
 				arrived = true;
 				minCnt = Math.min(minCnt, curInfo.cnt);
+				continue;
 			}
 			if(arrived && curInfo.cnt >= minCnt) continue; //가지치기 1
-			if(arrived && MEMO[curInfo.x][curInfo.y][curInfo.dir] <= curInfo.cnt) continue; //가지치기2
+			if(MEMO[curInfo.x][curInfo.y][curInfo.dir] <= curInfo.cnt) continue; //가지치기2
 			MEMO[curInfo.x][curInfo.y][curInfo.dir] = curInfo.cnt;
 			for (int i = 0; i < 4; i++) {
 				int nx = curInfo.x + dx[i];
 				int ny = curInfo.y + dy[i];
-				if(!inRange(nx, ny)) continue;
-				if(curInfo.dir == i && MEMO[nx][ny] ) { // 같은방향 진행
+				if(!inRange(nx, ny) || MEMO[nx][ny][i] <= curInfo.cnt) continue;
+				if(curInfo.dir == i) { // 같은방향 진행
 					q.add(new INFO(nx, ny, i, curInfo.cnt));					
 				}else { // 다른 방향 진행
 					q.add(new INFO(nx, ny, i, curInfo.cnt + 1));										
 				}
 			}
+			//printMemo();
 		}
 		System.out.println(minCnt);
 	}
