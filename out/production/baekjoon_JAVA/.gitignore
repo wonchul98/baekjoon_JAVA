@@ -13,6 +13,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+out.production/
+
 
 # External tool builders
 .externalToolBuilders/
@@ -124,4 +126,3 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/java,macos,eclipse
-/out/
