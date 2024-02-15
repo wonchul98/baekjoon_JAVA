@@ -26,8 +26,8 @@ public class _2295 {
 			}
 		}
 		Collections.sort(list);
-		System.out.println(Arrays.toString(arr));
-		System.out.println(list.toString());
+		//System.out.println(Arrays.toString(arr));
+		//System.out.println(list.toString());
 		
 		for(int i = N-1;i >= 0;i--) { //arr의 뒤에서 부터 탐색
 			for(int j = 0;j < list.size();j++) {
