@@ -16,7 +16,6 @@ public class _3197 {
 	public static int[] dx = {-1,0,1,0};
 	public static int[] dy = {0,1,0,-1};
 	
-	
 	public static int dijkstra() {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(s_x, s_y, 0));
@@ -27,6 +26,7 @@ public class _3197 {
             int x = current.x;
             int y = current.y;
             int currentCost = current.cost;
+            //System.out.printf("x : %d, y : %d, cost : %d\n", x, y, currentCost);
             if(map[x][y] == 'L') {
             	e_x = x;
             	e_y = y;
