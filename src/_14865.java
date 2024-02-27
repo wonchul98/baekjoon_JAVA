@@ -12,78 +12,53 @@ import java.util.StringTokenizer;
 public class _14865 {
 	public static int N;
 	public static ArrayList<Integer> list2;
-	public static void MakeList(ArrayList<Pair> list) {
-		list2 = new ArrayList<>();
-		Stack<Pair> s = new Stack<>();
-		for(int i= 0; i < list.size();i++) {
-			Pair cur = list.get(i);
-			if(s.isEmpty()) {
-				list2.add(cur.start);
-				s.add(new Pair(cur.end, i));
-			}
-			else {
-				if(cur.start < s.peek().start) {
-					list2.add(cur.start);
-					s.add(new Pair(cur.end, i));
-				}
-				else {
-					list2.add(s.pop().end);
-				}
-			}
-		}
-	}
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		ArrayList<Pair> list = new ArrayList<>();
 		N = Integer.parseInt(br.readLine());
-
-		int prevB = 0;
-		int startPair = 0;
-		int saveA1 = 0;
-		int saveA2 = 0;
-		boolean mode1 = false;
-		boolean saved = false;
-		for(int i = 0;i < N;i++) { // 맨 처음 원소가 x좌표 아래에서 시작한다고 가정...
+		Pair[] arr= new Pair[N];
+		for(int i = 0;i < N;i++) { 
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
-			if(i == 0 && b > 0) {
-				mode1 = true;
-				saveA2 = a;
-			}
-			if(mode1) { // 시작 좌표의 y좌표가 0보다 큰 경우
-				if(b > 0 && prevB < 0) { // down -> up
-					startPair = a;
-				}
-				if(b < 0 && prevB > 0) { // up -> down
-					if(!saved) {
-						saved = true;
-						saveA1 = a;
-				
-						prevB = b;
-						continue;
-					}
-					if(a < startPair) {
-						list.add(new Pair(a, startPair));
-					}else {
-						list.add(new Pair(startPair, a));
-					}
-				}
-				prevB = b;				
-			} else { //시작 좌표의 y좌표가 0보다 작은 경우
-				if(b > 0 && prevB < 0) startPair = a;
-				if(b < 0 && prevB > 0) {
-					if(a < startPair) {
-						list.add(new Pair(a, startPair));
-					}else {
-						list.add(new Pair(startPair, a));
-					}
-				}
-				prevB = b;				
-			}
-			
+			 //시작 좌표의 y좌표가 0보다 작은 경우
+			arr[i] = new Pair(a, b);			
 		}//end of for
-		if(mode1) list.add(new Pair(saveA2, saveA1));
+		int idx = 0;
+		Pair min = new Pair(Integer.MAX_VALUE, Integer.MAX_VALUE);
+		for(int i = 0;i < N;i++) { 
+			Pair cur = arr[i];
+			if(min.end >= cur.end && min.start >= cur.start) {
+				min = cur;
+				idx = i;
+			}
+		}//end of for
+		ArrayList<Pair> input = new ArrayList<>();
+		for(int i = idx;i < N;i++) {
+			input.add(arr[i]);
+		}
+		for(int i = 0; i < idx;i++) {
+			input.add(arr[i]);
+		}
+		
+		int prevB = 0;
+		int startPair = 0;
+
+		for(int i = 0;i < N;i++) { 
+			int a = input.get(i).start;
+			int b = input.get(i).end;
+			if(b > 0 && prevB < 0) startPair = a;
+			if(b < 0 && prevB > 0) {
+				if(a < startPair) {
+					list.add(new Pair(a, startPair));
+				}else {
+					list.add(new Pair(startPair, a));
+				}
+			}
+			prevB = b;
+		}
+
 		Collections.sort(list);
 		//System.out.println(list.toString());
 		int end = list.get(0).end;
@@ -96,7 +71,7 @@ public class _14865 {
 		}
 		
 		ArrayList<Pair> pairList = new ArrayList<>();
-		int idx = 0;
+		idx = 0;
 		for(int i = 0;i < list.size();i++) {
 			pairList.add(new Pair(list.get(i).start, idx));
 			pairList.add(new Pair(list.get(i).end, idx++));
