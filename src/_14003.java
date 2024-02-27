@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class _12738 {
+public class _14003 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
@@ -29,6 +29,9 @@ public class _12738 {
 			}
 		}
 		System.out.println(list.size());
+		for(int i = 0 ; i < list.size();i++) {
+			System.out.print(list.get(i) + " ");
+		}
 	}
 	public static int binarySearch(int key, ArrayList<Integer> list) {
 		int low = 0;
@@ -50,3 +53,4 @@ public class _12738 {
         return mid;  // key not found
 	}
 }
+
